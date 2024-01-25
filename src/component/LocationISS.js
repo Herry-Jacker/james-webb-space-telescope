@@ -79,30 +79,21 @@ export default function LocationISS() {
     };
 
     useEffect(() => {
-        try {
             const getISS = () => {
                 setInterval( async () => {
                     let data = await (await fetch(`https://api.wheretheiss.at/v1/satellites/25544`)).json();
                     setIss(data)
                     const center = {
-                        lat: data.latitude ? data.latitude : liveLocation[0], // Replace with the desired latitude
-                        lng: data.longitude ? data.longitude : liveLocation[1], // Replace with the desired longitude
+                        lat: data.latitude ? data.latitude : liveLocation[0],
+                        lng: data.longitude ? data.longitude : liveLocation[1],
                     };
                     setLocation([data.latitude ? data.latitude : 0, data.longitude ? data.longitude : 0 ])
                     handlePanTo(center);
+                    console.log(data);
+                    console.log(issData);
                 }, 2000)
             };
             return () => getISS();
-        } catch (error) {
-            if (error.response && error.response.status === 429) {
-                async () => {
-                    await delay(3000);
-                    return makeRequest();
-                }
-              } else {
-                console.error('Error:', error.message);
-              }
-        }
     }, []);
 
     const cusTomIcon = new Icon({
