@@ -1,9 +1,7 @@
-import React from 'react';
-import LocationISS from './component/LocationISS';
+import React from 'react'
 
 export default function App() {
-
   return (
-    <LocationISS/>
+    <div>App</div>
   )
 }
